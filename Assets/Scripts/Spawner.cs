@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private float spawnRateSeconds;
+    [SerializeField] private float spawnRateSeconds = 1f;
     [SerializeField] private GameObject[] objects;
+    [SerializeField] private float maxOffsetX = 0f;
+
     private float leftEdge;
 
 
@@ -21,6 +23,8 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         var obj = objects[Random.Range(0, objects.Length)];
-        var spawnObject = Instantiate(obj, transform.position, Quaternion.identity);
+
+        var position = transform.position + Vector3.left * Random.Range(0f, maxOffsetX);
+        var spawnObject = Instantiate(obj, position, Quaternion.identity);
     }
 }
