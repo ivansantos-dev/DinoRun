@@ -8,19 +8,30 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidBody;
     private BoxCollider2D boxCollider;
 
+    private GameManager gameManager;
+
     private bool jumpPressed;
 
     void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
     {
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            jumpPressed = true;
+            Debug.Log("Hit space" + gameManager.isGameOver());
+            if (gameManager.isGameOver())
+            {
+                gameManager.Play();
+            }
+            else if (IsGrounded())
+            {
+                jumpPressed = true;
+            }
         }
     }
 
@@ -33,7 +44,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool IsGrounded()   {
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            gameManager.GameOver();
+        }
+
+    }
+
+    private bool IsGrounded()
+    {
         var boxCast = Physics2D.BoxCast(
             boxCollider.bounds.center,
             boxCollider.bounds.size,
@@ -43,8 +64,7 @@ public class Player : MonoBehaviour
             platformLayerMask
 
         );
-        Debug.Log(boxCast.collider);
         return boxCast.collider != null;
-   }
+    }
 
 }
