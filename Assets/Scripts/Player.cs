@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask platformLayerMask;
 
     [SerializeField] private float jumpMultiplier = 5f;
+    [SerializeField] private float fallMultiplier = 1f;
     private Rigidbody2D rigidBody;
     private BoxCollider2D boxCollider;
 
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
             if (gameManager.isGameOver())
             {
                 gameManager.Play();
+                jumpPressed = false;
             }
             else if (IsGrounded())
             {
@@ -37,6 +39,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rigidBody.velocity.y < 0)
+        {
+            rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+
+
         if (jumpPressed)
         {
             rigidBody.velocity = Vector2.up * jumpMultiplier;
