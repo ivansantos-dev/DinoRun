@@ -314,8 +314,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2032f96e4a2a1314781329676270f10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 5
-  prefab: {fileID: 1490590674608515427, guid: 68ab6839e08107547bb114a823a88b0f, type: 3}
+  spawnRateSeconds: 1
+  objects:
+  - {fileID: 1490590674608515427, guid: 68ab6839e08107547bb114a823a88b0f, type: 3}
+  - {fileID: 1490590674608515427, guid: a5589f5f7151f427abf1d20a8415d2aa, type: 3}
+  - {fileID: 1490590674608515427, guid: c6842060e720e46ed8dc0efc1d43ce3f, type: 3}
 --- !u!4 &1569902023
 Transform:
   m_ObjectHideFlags: 0

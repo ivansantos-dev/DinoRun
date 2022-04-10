@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private float spawnRate;
-    [SerializeField] private GameObject prefab;
+    [SerializeField] private float spawnRateSeconds;
+    [SerializeField] private GameObject[] objects;
     private float leftEdge;
 
 
 
     void OnEnable()
     {
-        InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
+        InvokeRepeating(nameof(Spawn), spawnRateSeconds, spawnRateSeconds);
     }
 
     void OnDisable()
@@ -20,8 +20,7 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        var spawnObject = Instantiate(prefab, transform.position, Quaternion.identity);
+        var obj = objects[Random.Range(0, objects.Length)];
+        var spawnObject = Instantiate(obj, transform.position, Quaternion.identity);
     }
-
-
 }
